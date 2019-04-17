@@ -1,0 +1,30 @@
+<% include layouts/header %>
+
+	<main>
+		<div class="row justify-content-center">
+			<div class="col-lg-6 container3 text-white p-5">
+				<div class="container4">
+					<h3 class="text-center">With One <span class="spn">$1</span> you can Save a life.</h3>
+				</div>
+				<div class="container pt-3">
+					<form name="myForm" action="/paystack/pay" method="POST"> 
+						<input type="text" name="full_name" id="name" placeholder="Full Name">
+						<hr>
+						<input type="email" name="email" id="email" placeholder="Email">
+						<hr>  
+						<select name="amount">
+							<option>Select Amount</option>
+							<option value="500">500</option>
+							<option value="1000">1000</option>
+							<option value="2000">2000</option>
+						</select>
+						<div class="bttn pt-2">
+							<button>Donate</button>                            						
+						</div>                          					
+					</form>
+				</div>
+			</div>
+			
+		</div>
+	</main>
+<% include layouts/footer %>
