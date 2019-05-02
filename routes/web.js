@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 const PaymentController = require('../appController/PaymentController');
 const AdminController = require('../appController/AdminController');
 
@@ -26,6 +27,12 @@ router.get('/admin', (req, res)=>{
 });
 
 // login admin
-router.post('/admin/login', AdminController.loginUser);
+router.post('/admin', (req, res, next)=>{
+	passport.authenticate('local', {
+		successRedirect: '/admin/home',
+		failureRedirect: '/admin',
+		failureFlash: true
+	})(req, res, next);
+});
 
 module.exports = router;
