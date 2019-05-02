@@ -27,12 +27,27 @@ router.get('/admin', (req, res)=>{
 });
 
 // login admin
-router.post('/admin', (req, res, next)=>{
-	passport.authenticate('local', {
-		successRedirect: '/admin/home',
-		failureRedirect: '/admin',
-		failureFlash: true
-	})(req, res, next);
+router.post('/admin', AdminController.loginUser);
+
+// admin home
+router.get('/admin/home', isAuth, AdminController.home);
+
+
+// logout admin
+router.get('/admin/logout', isAuth, (req, res)=>{
+	req.logout();
+	req.flash('success', 'You are logged out')
+	res.redirect('/');
 });
+
+// authenticate user
+function isAuth(req, res, next){
+	if (req.isAuthenticated()){
+		return next();
+	}else{
+		req.flash('danger', 'Please Login');
+		res.redirect('/');
+	}
+}
 
 module.exports = router;

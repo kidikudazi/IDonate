@@ -39,10 +39,15 @@
 
 <body class="login-img3-body">
 
-  <div class="container">
-    <%= messages()  %>
-        
-
+  <div class="container">   
+    
+    <% if(messages())  {%>
+      <% Object.keys(messages).forEach(function(type) { %>
+        <% messages[type].forEach(function(message) { %>
+        <div class="alert alert-danger"><%= lll %></div>
+        <% }); %>
+        <% }); %>
+    <% }%>
     <form class="login-form" action="/admin" method="POST">
       <div class="login-wrap">
         <p class="login-img"><i class="icon_lock_alt"></i></p>
