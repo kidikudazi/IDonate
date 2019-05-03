@@ -10,7 +10,7 @@ module.exports = function(passport){
     passwordField: 'password'
   },function(username, password, done){
 		// Match username
-		//let query = {username:username};
+
 		let validateUsername = "SELECT * FROM admin WHERE username ='"+username+"'";
 		
 		con.query(validateUsername, function(err, user){
@@ -35,24 +35,6 @@ module.exports = function(passport){
 				});
 			}
 		});
-
-		/*User.findOne(query, function(err, user){
-			if(err) throw err;
-			if(!user)
-			{
-				return done(null, false, {message: 'No user found'});
-			}else{
-				// match password
-				bcrypt.compare(password, user.password, function(err, isMatch){
-					if (err) throw err;
-					if (isMatch){
-						return done(null, user);
-					}else{
-						return done(null, false, {message: 'Wrong Password'});
-					}
-				});
-			}
-		});*/
 	}));
 
 	passport.serializeUser(function(user, done){

@@ -96,8 +96,8 @@
                           <span>Dashboard</span>
                       </a>
           </li>
-          <li class="sub-menu">
-            <a href="javascript:;" class="">
+          <!-- <li class="sub-menu">
+            <a href="javascript:void(0);" class="">
                           <i class="icon_document_alt"></i>
                           <span>Forms</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
@@ -106,60 +106,7 @@
               <li><a class="" href="form_component.html">Form Elements</a></li>
               <li><a class="" href="form_validation.html">Form Validation</a></li>
             </ul>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;" class="">
-                          <i class="icon_desktop"></i>
-                          <span>UI Fitures</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
-                      </a>
-            <ul class="sub">
-              <li><a class="" href="general.html">Elements</a></li>
-              <li><a class="" href="buttons.html">Buttons</a></li>
-              <li><a class="" href="grids.html">Grids</a></li>
-            </ul>
-          </li>
-          <li>
-            <a class="" href="widgets.html">
-                          <i class="icon_genius"></i>
-                          <span>Widgets</span>
-                      </a>
-          </li>
-          <li>
-            <a class="" href="chart-chartjs.html">
-                          <i class="icon_piechart"></i>
-                          <span>Charts</span>
-
-                      </a>
-
-          </li>
-
-          <li class="sub-menu">
-            <a href="javascript:;" class="">
-                          <i class="icon_table"></i>
-                          <span>Tables</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
-                      </a>
-            <ul class="sub">
-              <li><a class="" href="basic_table.html">Basic Table</a></li>
-            </ul>
-          </li>
-
-          <li class="sub-menu">
-            <a href="javascript:;" class="">
-                          <i class="icon_documents_alt"></i>
-                          <span>Pages</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
-                      </a>
-            <ul class="sub">
-              <li><a class="" href="profile.html">Profile</a></li>
-              <li><a class="" href="login.html"><span>Login Page</span></a></li>
-              <li><a class="" href="contact.html"><span>Contact Page</span></a></li>
-              <li><a class="" href="blank.html">Blank Page</a></li>
-              <li><a class="" href="404.html">404 Error</a></li>
-            </ul>
-          </li>
-
+          </li> -->
         </ul>
         <!-- sidebar menu end-->
       </div>
@@ -179,12 +126,14 @@
             </ol>
           </div>
         </div>
+        <% formatterHeader = Intl.NumberFormat('en-US'); %>
+        <% formatter = Intl.NumberFormat('en-US', {style:'currency', currency:'NGN'}); %>
 
         <div class="row">
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <div class="info-box blue-bg">
               <i class="fa fa-money"></i>
-              <div class="count">6.674</div>
+              <div class="count"><%= formatterHeader.format(donations[0]['SUM(amount)']) %></div>
               <div class="title">Total Doantion</div>
             </div>
             <!--/.info-box-->
@@ -194,7 +143,7 @@
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <div class="info-box dark-bg">
               <i class="fa fa-users"></i>
-              <div class="count">4.362</div>
+              <div class="count"><%= donors[0]['COUNT(DISTINCT full_name)'] %></div>
               <div class="title">Donors</div>
             </div>
             <!--/.info-box-->
@@ -206,7 +155,43 @@
         <!-- project team & activity start -->
         <div class="row">
           <div class="col-md-6">
-            
+            <!--Project donotions table-->
+            <section class="panel">
+              <div class="panel-body progress-panel">
+                <div class="row">
+                  <div class="col-lg-8 task-progress pull-left">
+                    <h1>Payment History</h1>
+                  </div>
+                  <div class="col-lg-4">
+                    <span class="profile-ava pull-right">
+                      <i class="fa fa-user"></i>
+                      Admin
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <table class="table table-hover ">
+                <thead>
+                  <tr>
+                    <th><i class="fa fa-user"></i> Full Name</th>
+                    <th><i class="fa fa-envelope"></i> Email</th>
+                    <th><i class="fa fa-money"></i> Amount</th>
+                    <th><i class="fa fa-file"> Payment Reference</i></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(var i=0; i < paymentHistory.length; i++) { %>
+                   <tr>
+                     <td><%= paymentHistory[i].full_name %></td>
+                     <td><%= paymentHistory[i].email %></td>
+                     <td><%= formatter.format(paymentHistory[i].amount) %></td>
+                     <td><%= paymentHistory[i].reference %></td>
+                   </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </section>
+            <!--Project donations list table-->
           </div>
           <div class="col-lg-6">
             <!--Project donor list table-->
@@ -232,12 +217,14 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <% for(var i=0; i < donorList.length; i++) { %>
                   <tr>
-                    <td>Francis</td>
+                    <td><%= donorList[i].full_name %></td>
                     <td>
-                      Adeboye@gmail.com
+                      <%= donorList[i].email %>
                     </td>        
                   </tr>
+                  <% } %>
                 </tbody>
               </table>
             </section>

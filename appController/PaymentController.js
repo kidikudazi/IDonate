@@ -40,7 +40,9 @@ exports.handleCallback = function(req,res){
 
         [reference, amount, email, full_name] =  data;
         
-        newDonor = {reference, amount, email, full_name}
+        newDonor = {reference, amount, email, full_name};
+
+        newDonor.amount = (newDonor.amount/100);
        	
        	var sql = "INSERT INTO donor (full_name, email, amount, reference) VALUES ('"+newDonor.full_name+"', '"+newDonor.email+"', '"+newDonor.amount+"', '"+newDonor.reference+"')";
 		
@@ -60,8 +62,7 @@ exports.receiptPage = function(req, res){
 	    if (err){
 	    	res.redirect('/error')
 	    }
-	    var dd = (result)
-	    console.log(dd[0].full_name);
+
 	    res.render('success.ejs',{result});
   	});
 }
