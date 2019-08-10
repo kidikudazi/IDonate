@@ -72,7 +72,7 @@ let webRoute = require('./routes/web');
 app.use('/', webRoute);
 
 // set port
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 // start server
 app.listen(port, function(){
